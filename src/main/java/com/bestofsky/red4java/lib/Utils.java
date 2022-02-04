@@ -9,12 +9,12 @@ public class Utils {
         final char[] seeds = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
         SecureRandom random = new SecureRandom();
-        StringBuilder stringBuffer = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
 
         for (int i = 0; i < digit; i++) {
-            stringBuffer.append(seeds[random.nextInt(seeds.length)]);
+            stringBuilder.append(seeds[random.nextInt(seeds.length)]);
         }
 
-        return stringBuffer.toString();
+        return stringBuilder.toString();
     }
 }
