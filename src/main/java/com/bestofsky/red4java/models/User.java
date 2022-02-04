@@ -6,28 +6,40 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.ValidationException;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+import java.util.Optional;
 
 @Entity(name = "users")
-@Getter @Setter
-@Builder @AllArgsConstructor @NoArgsConstructor
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @DynamicInsert
 @DynamicUpdate
 public class User {
+
     @Id
     @GeneratedValue
     private Long id;
 
-    @Column(name = "login", nullable = false)
+    @Column(name = "login", unique = true)
+    @NotNull
+    @NotBlank
     private String login;
 
     @Column(name = "hashed_password")
     private String hashedPassword;
 
-    @Column(name = "firstname", length = 30)
+    @Length(max = 30)
+    @Column(name = "firstname")
     private String firstName;
 
     @Column(name = "lastname")
@@ -43,7 +55,8 @@ public class User {
     @Column(name = "last_login_on")
     private LocalDateTime lastLoginOn;
 
-    @Column(name = "language", length = 5)
+    @Length(max = 5)
+    @Column(name = "language")
     private String language;
 
     @Column(name = "auth_source_id")
@@ -90,6 +103,14 @@ public class User {
 
     @Column(name = "updated_on")
     private ZonedDateTime updatedOn;
+
+    @PrePersist
+    private void prePersist() {
+        Optional.ofNullable(passwordConfirmation).ifPresent(passwordConfirmation ->
+                Optional.ofNullable(password).filter(pw -> pw.equals(passwordConfirmation))
+                                                         .orElseThrow(() -> new ValidationException("비밀번호 틀림"))
+        );
+    }
 
     public String hashPassword(String clearPassword) {
         return DigestUtils.sha1Hex(clearPassword);
