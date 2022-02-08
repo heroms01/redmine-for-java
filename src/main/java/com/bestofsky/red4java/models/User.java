@@ -1,6 +1,6 @@
 package com.bestofsky.red4java.models;
 
-import com.bestofsky.red4java.lib.Utils;
+import com.bestofsky.red4java.lib.redmine.Utils;
 import lombok.*;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.annotations.ColumnDefault;

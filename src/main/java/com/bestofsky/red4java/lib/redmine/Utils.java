@@ -1,4 +1,4 @@
-package com.bestofsky.red4java.lib;
+package com.bestofsky.red4java.lib.redmine;
 
 import java.security.SecureRandom;
 
