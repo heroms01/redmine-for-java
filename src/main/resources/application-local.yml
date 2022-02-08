@@ -1,0 +1,8 @@
+spring:
+  devtools:
+    livereload:
+      enabled: true
+
+logging:
+  level:
+    org.hibernate.SQL: debug

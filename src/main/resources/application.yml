@@ -17,9 +17,9 @@ spring:
           content:
             enabled: true # Enable the content Version Strategy.
             paths: /**    # Comma-separated list of patterns to apply to the Version Strategy.
+  thymeleaf:
+    cache: false
+    prefix: file:src/main/resources/templates/
 
-logging:
-  level:
-    org.hibernate.SQL: debug
 
 
