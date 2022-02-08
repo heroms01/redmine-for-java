@@ -8,6 +8,9 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create
+  messages:
+    basename: messages/message
+    encoding: UTF-8
   web:
     resources:
       chain:
