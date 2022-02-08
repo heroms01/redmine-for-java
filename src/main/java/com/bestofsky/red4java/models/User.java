@@ -60,7 +60,7 @@ public class User {
     private String language;
 
     @Column(name = "auth_source_id")
-    private Integer authSourceId;
+    private Long authSourceId;
 
     @Column(name = "type")
     private String type;

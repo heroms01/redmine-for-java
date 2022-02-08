@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import java.time.ZonedDateTime;
 
-@Entity(name = "news")
+@Entity(name = "comments")
 @Getter
 @Setter
 @Builder
@@ -17,33 +17,30 @@ import java.time.ZonedDateTime;
 @NoArgsConstructor
 @DynamicInsert
 @DynamicUpdate
-public class News {
+public class Comment {
     @Id
     @GeneratedValue
     private Long id;
 
-    @Column(name = "project_id")
-    private Long projectId;
+    @Column(name = "commented_type")
+    @Length(max = 30)
+    private String commentedType;
 
-    @Column(name = "title")
-    @Length(max = 60)
-    private String title;
-
-    @Column(name = "summary")
-    private String summary;
-
-    @Column(name = "description")
-    @Lob
-    private String description;
+    @Column(name = "commented_id")
+    @ColumnDefault("0")
+    private Long commentedId;
 
     @Column(name = "author_id")
     @ColumnDefault("0")
     private Long authorId;
 
+    @Column(name = "content")
+    @Lob
+    private String content;
+
     @Column(name = "created_on")
     private ZonedDateTime createdOn;
 
-    @Column(name = "comments_count")
-    @ColumnDefault("0")
-    private Integer commentsCount;
+    @Column(name = "updated_on")
+    private ZonedDateTime updatedOn;
 }
